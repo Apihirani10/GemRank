@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .starfield-pattern {
+            background-image: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+        .nebula-glow {
+            filter: blur(120px);
+            opacity: 0.15;
+            background: radial-gradient(circle, #528dff 0%, #00275f 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .light-sweep::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+            transform: skewX(-25deg);
+            transition: 0.75s;
+        }
+        .light-sweep:hover::before {
+            left: 125%;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-container": "#b5b8c1",
+                      "on-primary-container": "#00275f",
+                      "on-primary-fixed-variant": "#004299",
+                      "tertiary-container": "#8083ff",
+                      "tertiary": "#c0c1ff",
+                      "secondary-fixed-dim": "#c3c6cf",
+                      "on-primary-fixed": "#001944",
+                      "surface-container": "#1d2023",
+                      "inverse-on-surface": "#2e3134",
+                      "on-tertiary-container": "#0d0096",
+                      "surface-container-high": "#282a2e",
+                      "on-error-container": "#ffdad6",
+                      "primary-container": "#528dff",
+                      "primary-fixed-dim": "#afc6ff",
+                      "surface-dim": "#111417",
+                      "on-tertiary-fixed": "#07006c",
+                      "surface-container-highest": "#323539",
+                      "secondary": "#c3c6cf",
+                      "error-container": "#93000a",
+                      "outline": "#8c90a0",
+                      "on-surface": "#e1e2e7",
+                      "surface-container-low": "#191c1f",
+                      "surface-variant": "#323539",
+                      "surface-tint": "#afc6ff",
+                      "on-background": "#e1e2e7",
+                      "primary-fixed": "#d9e2ff",
+                      "error": "#ffb4ab",
+                      "on-secondary-fixed": "#181c22",
+                      "background": "#111417",
+                      "surface-bright": "#37393d",
+                      "on-secondary-fixed-variant": "#43474e",
+                      "inverse-primary": "#0059c7",
+                      "on-primary": "#002d6d",
+                      "on-error": "#690005",
+                      "on-surface-variant": "#c2c6d7",
+                      "tertiary-fixed": "#e1e0ff",
+                      "tertiary-fixed-dim": "#c0c1ff",
+                      "secondary-fixed": "#dfe2eb",
+                      "inverse-surface": "#e1e2e7",
+                      "on-tertiary-fixed-variant": "#2f2ebe",
+                      "secondary-container": "#454950",
+                      "surface": "#111417",
+                      "on-tertiary": "#1000a9",
+                      "on-secondary": "#2d3137",
+                      "primary": "#afc6ff",
+                      "surface-container-lowest": "#0c0e12",
+                      "outline-variant": "#424754"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit-md": "16px",
+                      "gutter": "24px",
+                      "unit-xs": "4px",
+                      "unit-lg": "32px",
+                      "unit-sm": "8px",
+                      "container-max": "1440px",
+                      "margin-edge": "40px",
+                      "unit-xl": "64px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Inter"],
+                      "headline-xl": ["Inter"],
+                      "label-caps": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                      "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.2em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-surface font-body-md text-on-surface overflow-x-hidden">
+<!-- NAVIGATION SHELL -->
+<header class="fixed top-0 w-full z-50 bg-slate-950/40 backdrop-blur-3xl border-b border-blue-500/20 shadow-[0_0_15px_rgba(46,125,255,0.1)]">
+<nav class="flex justify-between items-center h-16 px-6 lg:px-12 max-w-[1920px] mx-auto">
+<div class="text-2xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-300">
+                GemRank
+            </div>
+<div class="hidden md:flex items-center gap-unit-lg">
+<a class="font-sans tracking-tight text-sm font-medium text-blue-400 border-b-2 border-blue-400 pb-1" href="#">Discover</a>
+<a class="font-sans tracking-tight text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#">Trending</a>
+<a class="font-sans tracking-tight text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#">Rising Stars</a>
+<a class="font-sans tracking-tight text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#">Categories</a>
+</div>
+<div class="flex items-center gap-unit-md">
+<button class="material-symbols-outlined p-2 hover:bg-white/5 transition-all duration-300 ease-out active:scale-95 text-slate-400" data-icon="notifications">notifications</button>
+<button class="material-symbols-outlined p-2 hover:bg-white/5 transition-all duration-300 ease-out active:scale-95 text-blue-400" data-icon="auto_awesome">auto_awesome</button>
+<div class="w-8 h-8 rounded-full border border-blue-500/30 overflow-hidden">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Close up portrait of a professional individual with soft cinematic lighting and dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPsbHEHVPmhSHdJvVO5dGsA7i2y_j6mQA_cDUbZ-wTh7mSyJcO8UkLLsVCoAYpTfqWJn8xR1GRoTgDE4l-G0Dnijep4qR66OjBOiWGTXZUFTsoGTRGJiZ3HEHl2Qtm3Sa1E24zTi7b-9criInDuvf-TxX2tV3V4Rx6opILSfhmkl933xnpgPj0Pb5UYP_MoUfjVMhW7eo3Z6BriMGKtIP40Pj7agcN3-M4Ppe5RzzCEYYSz5xCIy--4Uj2H_KRB1bys02JxhIWhypu"/>
+</div>
+</div>
+</nav>
+</header>
+<main class="relative min-h-screen pt-16">
+<!-- GLOBAL BACKGROUND ELEMENTS -->
+<div class="fixed inset-0 starfield-pattern pointer-events-none -z-20"></div>
+<div class="fixed top-[-10%] left-[-10%] w-[50%] h-[50%] nebula-glow -z-10"></div>
+<div class="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] nebula-glow -z-10" style="background: radial-gradient(circle, #8083ff 0%, #07006c 100%);"></div>
+<!-- HERO SECTION -->
+<section class="relative h-[921px] flex flex-col items-center justify-center text-center px-gutter overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Background Space" class="w-full h-full object-cover opacity-30" data-alt="Vibrant deep space nebula with swirling indigo and violet gases and bright distant stars in ultra high resolution" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASDHqgy80Y1O3rcHSq9AYdZlFzEVnWmXUyfE1of2F7wP1e_2b0Aenn9kVQK3-QJXLgxjbhRthMQI8x5zcO5EXt9VeDz2w_meX-X9JfZTCyhrlve6xJAy6zrVjXx2VEE4tHe6pcEpy5rEQNnh6i6kJmzUMMkplZHpdvZ85t3gUP363ocfifHjwsfZGJg6CdiQj7q9ox9EmDfsMiR3Oc3bTP52IIlPVaZEwN7sCuXdet7EyKsdv3I6kIOrxS5LcEU-lMxw6BFidU88VI"/>
+</div>
+<div class="relative z-10 max-w-4xl space-y-unit-lg">
+<h1 class="font-headline-xl text-headline-xl md:text-7xl bg-clip-text text-transparent bg-gradient-to-b from-white via-blue-200 to-blue-500 leading-tight">
+                    Discover World's Top 10 &amp; <br/><span class="italic font-light">Hidden Gems</span>
+</h1>
+<p class="text-body-lg text-on-surface-variant max-w-2xl mx-auto opacity-80">
+                    The celestial platform for high-fidelity creator discovery. Navigate the universe of talent with precision rankings and cosmic insights.
+                </p>
+<div class="flex flex-col sm:flex-row gap-unit-md justify-center pt-unit-md">
+<button class="relative overflow-hidden light-sweep group px-unit-lg py-4 bg-gradient-to-r from-primary-container to-on-primary-fixed-variant rounded-full text-white font-bold tracking-wide shadow-[0_0_20px_rgba(82,141,255,0.3)] transition-transform active:scale-95">
+                        Explore Global Rankings
+                    </button>
+<button class="px-unit-lg py-4 rounded-full border border-primary-container/40 bg-white/5 hover:bg-white/10 text-primary-fixed font-bold tracking-wide transition-all active:scale-95">
+                        Discover Hidden Gems
+                    </button>
+</div>
+</div>
+</section>
+<!-- GLOBAL TOP PICKS -->
+<section class="py-unit-xl px-6 lg:px-margin-edge">
+<div class="max-w-[1920px] mx-auto">
+<div class="flex items-center justify-between mb-unit-lg">
+<div class="space-y-unit-xs">
+<span class="text-label-caps font-label-caps text-primary uppercase tracking-[0.3em]">Celestial Favorites</span>
+<h2 class="text-headline-lg font-headline-lg text-white">Global Top Picks</h2>
+</div>
+<button class="text-on-surface-variant hover:text-white flex items-center gap-2 transition-colors">
+                        View All <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="flex gap-gutter overflow-x-auto pb-unit-lg no-scrollbar snap-x">
+<!-- Influencer Cards -->
+<div class="snap-start min-w-[300px] md:min-w-[360px] glass-card rounded-xl p-unit-md group cursor-pointer hover:border-primary-container/50 transition-all">
+<div class="relative h-64 w-full rounded-lg overflow-hidden mb-unit-md">
+<img alt="Top Creator" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Portrait of a modern content creator in a minimalist studio setup with soft blue neon backlighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuVoyoSgEJ5p05AUS-NpI8UyvRKBCR5CoZILiKbpCpLgM7LCXCwjQTn-T-9urM0PiOcxUu3vLIKCGsxA6x1gQINyPdEu4MH_f7Zl2rNtl00cfJoV5Oyhisvaq3KIzyUcTUinGyexnID1X-3BEpdALgVcz4DRVP4Eplim_3tZyJJVnrYZ_zFd4OfgBdjwVQWg-RmVG9HcifGfcsmMGv3YPbl962npMOkisSyRsfVcv7DAhDgkOjvJHXYdfjKT3B7yaL6e6JBmYbU_Im"/>
+<div class="absolute top-4 left-4 bg-slate-950/80 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-white border border-white/10">#01 GLOBAL</div>
+</div>
+<h3 class="text-headline-md font-headline-md text-white mb-1">Jimmy Donaldson</h3>
+<p class="text-on-secondary-container text-sm">Entertainment &amp; Philanthropy</p>
+<div class="mt-4 flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-400" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-sm font-bold">9.9/10</span>
+</div>
+<span class="text-xs text-on-surface-variant">240M+ REACH</span>
+</div>
+</div>
+<div class="snap-start min-w-[300px] md:min-w-[360px] glass-card rounded-xl p-unit-md group cursor-pointer hover:border-primary-container/50 transition-all">
+<div class="relative h-64 w-full rounded-lg overflow-hidden mb-unit-md">
+<img alt="Top Creator" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Striking portrait of a world-class athlete in a high-contrast dark environment with sharp side lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXpSoeU_LJee2FH_LwgOSlqNolSlzdDx94MGbGh7jzbXCwHD6THwMa33l7ZC8uvIguiaAnMnm-aD81rGFBCoKimOt5OUs2wK9NRIF8k-K1zt1Ge0uQdoIdZ7C_hDrfpfxx9aZ8thgogPQiDpvV4-1nYdYP-iMnJnNC4MUjI4B2k1laU8cgcO3U4T9U6WOaNe1XYV7IwZqPAxEgDmSfx5XImq5LZU0Yi9WPmZXP7WWJcqNikOJHVsbbxlj8JB1YP4oekatYbrBe97YE"/>
+<div class="absolute top-4 left-4 bg-slate-950/80 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-white border border-white/10">#02 GLOBAL</div>
+</div>
+<h3 class="text-headline-md font-headline-md text-white mb-1">Cristiano Ronaldo</h3>
+<p class="text-on-secondary-container text-sm">Athletics &amp; Lifestyle</p>
+<div class="mt-4 flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-400" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-sm font-bold">9.8/10</span>
+</div>
+<span class="text-xs text-on-surface-variant">600M+ REACH</span>
+</div>
+</div>
+<div class="snap-start min-w-[300px] md:min-w-[360px] glass-card rounded-xl p-unit-md group cursor-pointer hover:border-primary-container/50 transition-all">
+<div class="relative h-64 w-full rounded-lg overflow-hidden mb-unit-md">
+<img alt="Top Creator" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Dynamic portrait of a creative individual with vibrant lighting effects in a high-end futuristic studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSa38cIcjGuZok7hrHKg1-08covW9lt4QWsU5NRB0RRlxcs3qBnBDhqXuaZIixGxEHZ8iHPcHWbigo22QuKdhgJExvEMI_wiYB72HOpgamQR_nDj81XMv_fXGHggTkw3esLUQI3Xpz2HOiLBKefphWrML07QSzXR14umvCpeDcV-R8O1hxYYb1BakMgzr2bJ_iK5MxsGNVzaGa5HGy-mzXjGI_LXk-wJ0algxJa9zky0INQlBcTBNSqgXsE5mpWsqwHHm-lp6iARq6"/>
+<div class="absolute top-4 left-4 bg-slate-950/80 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-white border border-white/10">#03 GLOBAL</div>
+</div>
+<h3 class="text-headline-md font-headline-md text-white mb-1">Zach King</h3>
+<p class="text-on-secondary-container text-sm">Digital Art &amp; Magic</p>
+<div class="mt-4 flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-400" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-sm font-bold">9.7/10</span>
+</div>
+<span class="text-xs text-on-surface-variant">80M+ REACH</span>
+</div>
+</div>
+<div class="snap-start min-w-[300px] md:min-w-[360px] glass-card rounded-xl p-unit-md group cursor-pointer hover:border-primary-container/50 transition-all">
+<div class="relative h-64 w-full rounded-lg overflow-hidden mb-unit-md">
+<img alt="Top Creator" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Portrait of a young tech innovator in a sleek glass-walled office with moody evening city lights in the background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCv8Xp66DbUBuDAy3fV7H6IK45ZKyw40Q5vBSrKjy943Mp-EQbmCFdKq6nbSvm-FSzAW6nXoIrKDap3jU-_GAul9aCb-I-Xoar95RCyo3e-pZs9siZH3BRcKLQfmrRa1VPf5PNZmDl6cZn_9BYqeYMEg4XQyuxDIEP8yvLfPiTmHMXS_tKHHbTo0EltZtMAnTZmi4x3K3dymhtqZwXCVyShDeUZZWjXftZYNzpspyZliihSo6_v58okncipXov6TqVLaFD9UzDaWqb8"/>
+<div class="absolute top-4 left-4 bg-slate-950/80 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-white border border-white/10">#04 GLOBAL</div>
+</div>
+<h3 class="text-headline-md font-headline-md text-white mb-1">Marques Brownlee</h3>
+<p class="text-on-secondary-container text-sm">Technology &amp; Design</p>
+<div class="mt-4 flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-400" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-sm font-bold">9.7/10</span>
+</div>
+<span class="text-xs text-on-surface-variant">18M+ REACH</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- HIDDEN GEMS SPOTLIGHT -->
+<section class="py-unit-xl px-6 lg:px-margin-edge bg-slate-950/20">
+<div class="max-w-[1920px] mx-auto">
+<div class="text-center mb-unit-xl">
+<span class="text-label-caps font-label-caps text-tertiary-container uppercase tracking-[0.4em]">Diamond in the Rough</span>
+<h2 class="text-headline-lg font-headline-lg text-white mt-2">Hidden Gems Spotlight</h2>
+<p class="text-on-surface-variant mt-unit-sm">Exceptional creators under 100k followers with premium production.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Gem Card 1 -->
+<div class="relative group p-[1px] rounded-xl overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-yellow-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="relative glass-card h-full p-unit-md rounded-xl flex flex-col">
+<div class="absolute top-4 right-4 z-10 flex items-center gap-1 bg-gradient-to-r from-yellow-600 to-amber-400 px-3 py-1 rounded-full text-[10px] font-black text-black shadow-[0_0_15px_rgba(234,179,8,0.4)]">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+                                GOLD SPARKLE
+                            </div>
+<div class="flex items-center gap-unit-md mb-unit-md">
+<img alt="Creator Profile" class="w-16 h-16 rounded-full object-cover border-2 border-yellow-500/20" data-alt="Professional headshot of a female artist in a warm lit creative studio with blurry paintings in background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPbCsLozZTaz2JEjF-o7UnLnpfoz3lvqZD9rMoNzmKvNzxjZtTRQ8Pp6LIRUnFycYHULn7wmz8dHloww9KFs33z3fPNLsKWoHSmkWR5P_30fHrqjJ-cAr8oSCuGG6JPVD4xkVeJu_euBROl7Ay_26oVP5b1WQ4viRxgfYubZxxClWiJR5SJbpwJOZAjp9Z5xrDUrGbCSSpMnnmy_YsP0aXRR-lk59VTvmeI_BWzO72TVahqKkqHJobtaXG059W_WO8sgrKhFfSwIxw"/>
+<div>
+<h4 class="text-white font-bold">Aria Voss</h4>
+<p class="text-on-secondary-container text-xs">Cinematic Travel</p>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant flex-grow italic">"Aria's editing quality rivals Hollywood productions. Her series on Northern Norway is a visual masterpiece."</p>
+<div class="mt-unit-lg flex justify-between items-center text-xs">
+<span class="text-tertiary">42K FOLLOWERS</span>
+<button class="text-white bg-white/10 px-4 py-2 rounded-full hover:bg-white/20 transition-colors">Observe</button>
+</div>
+</div>
+</div>
+<!-- Gem Card 2 -->
+<div class="relative group p-[1px] rounded-xl overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-yellow-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="relative glass-card h-full p-unit-md rounded-xl flex flex-col">
+<div class="absolute top-4 right-4 z-10 flex items-center gap-1 bg-gradient-to-r from-yellow-600 to-amber-400 px-3 py-1 rounded-full text-[10px] font-black text-black shadow-[0_0_15px_rgba(234,179,8,0.4)]">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+                                GOLD SPARKLE
+                            </div>
+<div class="flex items-center gap-unit-md mb-unit-md">
+<img alt="Creator Profile" class="w-16 h-16 rounded-full object-cover border-2 border-yellow-500/20" data-alt="Portrait of a male scientist or educator in a dark library setting with amber lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrOnUmOoUlsMlQv67oMODgunJVtlcUOFTb1lYLxBYvoLtieceujf7dghzBuiToQ6xRhTvDQ8XLelq-Zmx8JjC-72wuL7sSrAblS_qAzLmMFthbAknQXgIJJ9PVd43Evds2523Z4NbjWCLW-eay2GTKbmMCyIAi3mjus2N2V8FnN-te1sp_n116JOgv-XlRQp2Z6eaviBfbdSaqYcIR75pV7qjtIbccjea4F73q4FPq3eGGWiw8G0bi__KVBxA_60AZ428C0stldBJd"/>
+<div>
+<h4 class="text-white font-bold">Dr. Elias Thorne</h4>
+<p class="text-on-secondary-container text-xs">Astrophysics Explained</p>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant flex-grow italic">"Making complex cosmic phenomena accessible. His animations on black holes are unprecedented for his size."</p>
+<div class="mt-unit-lg flex justify-between items-center text-xs">
+<span class="text-tertiary">12K FOLLOWERS</span>
+<button class="text-white bg-white/10 px-4 py-2 rounded-full hover:bg-white/20 transition-colors">Observe</button>
+</div>
+</div>
+</div>
+<!-- Gem Card 3 -->
+<div class="relative group p-[1px] rounded-xl overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-yellow-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="relative glass-card h-full p-unit-md rounded-xl flex flex-col">
+<div class="absolute top-4 right-4 z-10 flex items-center gap-1 bg-gradient-to-r from-yellow-600 to-amber-400 px-3 py-1 rounded-full text-[10px] font-black text-black shadow-[0_0_15px_rgba(234,179,8,0.4)]">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+                                GOLD SPARKLE
+                            </div>
+<div class="flex items-center gap-unit-md mb-unit-md">
+<img alt="Creator Profile" class="w-16 h-16 rounded-full object-cover border-2 border-yellow-500/20" data-alt="Close-up portrait of a woman looking thoughtfully into distance with soft bokeh city lights in background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzKoKxB0fmXdTJFTh2CMyMOEYb9IHe15GaEuPvXpdUJnRBSNYhkBpANMLwSwD16EQMNCnXTAcvDktEuOtKCPsmorNAblgj7rh2kpK66stm0Yt4sq9vrq2BA-BBLDjYCWyxEyIhxt0mQdV7iFRwWpBAaWPqCgZ1HrqXUBstfqoUC5ryKWnTfm9D9FVfTTEGLYSjF_CRedzsHhxLI5ZXB68OnBHKKPNGI_U3Flsy67kawhkrDNoorbUxnX69UxEJreguUHwKpDFwB0_S"/>
+<div>
+<h4 class="text-white font-bold">Kaelie Zhang</h4>
+<p class="text-on-secondary-container text-xs">Tech Philosophy</p>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant flex-grow italic">"Profound insights into the intersection of AI and human consciousness. A rising intellectual star."</p>
+<div class="mt-unit-lg flex justify-between items-center text-xs">
+<span class="text-tertiary">88K FOLLOWERS</span>
+<button class="text-white bg-white/10 px-4 py-2 rounded-full hover:bg-white/20 transition-colors">Observe</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- TRENDING CATEGORIES (BENTO STYLE) -->
+<section class="py-unit-xl px-6 lg:px-margin-edge">
+<div class="max-w-[1920px] mx-auto">
+<div class="mb-unit-lg">
+<h2 class="text-headline-lg font-headline-lg text-white">Trending Realms</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter h-auto md:h-[600px]">
+<!-- Sports Tile -->
+<div class="md:col-span-8 relative rounded-2xl overflow-hidden glass-card group cursor-pointer">
+<img alt="Sports" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-1000" data-alt="Wide shot of a modern brightly lit stadium at night with a cinematic haze and cool blue lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYStav33sMXBsM-B06APpMrPXeUcp2ENetAGrFPyu4H6O3pNylwa5CcXe6BxXQwAqKhH3r8qKWiPfLbZQ8aWHBpANDChPRRbIfK4b78QOO38lhVlHvUA2JjIxpjxC3xEx9oOOvG5-8rkOOSw7L9sDfeQwX0GtDZxrZo9Ih1__It-KFMjmlB3gUls8E8hdQ2vUDTNtipRACdt8Fp9ECjcOdBEIEtJU5_KA4o7II6739DwVRyu0SDWcKwoGRRs--CVNtfXIjJF4zg29k"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-unit-lg">
+<span class="text-primary font-bold uppercase tracking-widest text-[10px]">REALM: ATHLETICS</span>
+<h3 class="text-3xl font-black text-white mt-2">Next Gen Formula 1</h3>
+<p class="text-on-surface-variant max-w-md mt-2">Discover the engineers and analysts rewriting the rules of racing through simulation data.</p>
+<div class="mt-unit-md flex items-center gap-3">
+<div class="flex -space-x-3">
+<div class="w-8 h-8 rounded-full border-2 border-surface-container overflow-hidden"><img alt="p1" class="w-full h-full object-cover" data-alt="headshot of a man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAq1UR91jkasJNgWzLNRpjvc45D8cgdqTa1OwdwIqhUnJh4Smxt8nbUCQsOisBs2Bsc4zorYsbntAQX3263W_ik53xx-LHE5kdgCU2YMUR-788cJbhjXbStIjod5_cRKV5D73ZEOaHdZVbQYuooGD7LcXeGeSSKCJVI2pTqfGUW8FNXhTODwse4aaN2VbgEXrjkN7YCFRM4SJz_Fal7VRzwzwHm525q0ft_4iV2958Cm5A7AOdpLbjUmPPB3SRWo1iuGwoK0xTrYviX"/></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container overflow-hidden"><img alt="p2" class="w-full h-full object-cover" data-alt="headshot of a man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpVswIFkzeiC8ng8aspRG09It19EhCfITsmPjfFfRpMGfECDsSyJUE7wgcifwD7f-bLXiw0pyKH7iLLyNqY1WlsZ3q_2iOxhC_gw__nFvegkXdYeg_PCU9OrNnS-nM0fFdfhJIruX36hYMZO2HB7oaetky73iCJ8oKAe9s2-46ioafAx0TJPtp9uWrYPhE2aBcCRl4rOJVraIxiICu6-4Nb0RfeA4clW_T4k6LRZK9uOQvpXzvNZQKPxHiIvm0n4GgzjTf5RxZ4tTx"/></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container overflow-hidden bg-primary-container text-[10px] flex items-center justify-center font-bold text-white">+12</div>
+</div>
+<span class="text-xs text-on-surface-variant">Rising Stars this week</span>
+</div>
+</div>
+</div>
+<!-- Gaming Tile -->
+<div class="md:col-span-4 relative rounded-2xl overflow-hidden glass-card group cursor-pointer">
+<img alt="Gaming" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-1000" data-alt="Close up of high-end gaming equipment with electric blue and purple RGB lighting in a dark room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFDlGjRahgDbRPrJ4_j2_gNvr0Qgp_qBDGZC66LWUMTwSAKCSXmALRANXVfWhgVHry1KOQKdxiKnIJPPYb-LEVlTwnmWXALoehZ9f2fDfnvcaHn90oJWU19zgA0AmN9I3DhYQGKhcz95C_vhl5qG9so8SX43du3QwLvzQpYk5163MIyr7UnOPr3ixqOG9gcva0y8l5ndxkWVZCUUh3TVqv8isxKcfEkUgu-fryG9uMJC0cVhFQlPx8ExjCbQTjcELcleF82Lq_4dnb"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-unit-lg">
+<span class="text-tertiary-container font-bold uppercase tracking-widest text-[10px]">REALM: GAMING</span>
+<h3 class="text-2xl font-black text-white mt-2">Cloud Sovereigns</h3>
+<p class="text-sm text-on-surface-variant mt-2">The rise of indie game documentarians.</p>
+</div>
+</div>
+<!-- Cooking Tile -->
+<div class="md:col-span-12 relative rounded-2xl overflow-hidden glass-card group cursor-pointer h-64 md:h-auto">
+<img alt="Cooking" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-1000" data-alt="Cinematic shot of a professional kitchen with steam rising from a pan and moody dramatic overhead lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQ1rpcAqbKIxfjqc8SbMQUqsRU004m3ZCmMv0EzhyYW6cshYrDjxnAjk2aj0GRK2l9OME_11sXrWkdnAyYjnOeftOUb9_6YJ6BvbklLn6B5K3Thu73kqbuZllmBCOXlNbclvijbyYTRoJzleY3EgViAjJ79Kjkk90JdV-A5vf6eciMNpVShTLcw8mcgryW3i9mbfxGz7tSe-Raam252ct5Hg332CZe2vR2JcBhw8jRmoAHiOXmMtymIrchmH7US3JlyH_rb_SFciQB"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-unit-lg flex flex-col md:flex-row md:items-end justify-between w-full">
+<div>
+<span class="text-error font-bold uppercase tracking-widest text-[10px]">REALM: CULINARY</span>
+<h3 class="text-2xl font-black text-white mt-2">Alchemist Kitchen</h3>
+</div>
+<div class="mt-4 md:mt-0 flex gap-gutter">
+<div class="text-center">
+<div class="text-white font-black text-xl">4.8k</div>
+<div class="text-[10px] text-on-surface-variant uppercase">New Gems</div>
+</div>
+<div class="text-center">
+<div class="text-white font-black text-xl">12%</div>
+<div class="text-[10px] text-on-surface-variant uppercase">Growth</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA SECTION -->
+<section class="py-unit-xl px-6">
+<div class="max-w-4xl mx-auto glass-card rounded-3xl p-unit-xl text-center border-blue-500/30 relative overflow-hidden">
+<div class="absolute -top-24 -left-24 w-48 h-48 bg-primary/20 blur-3xl rounded-full"></div>
+<div class="absolute -bottom-24 -right-24 w-48 h-48 bg-tertiary/20 blur-3xl rounded-full"></div>
+<h2 class="text-headline-lg font-headline-lg text-white mb-unit-md">Ready to start your discovery?</h2>
+<p class="text-on-surface-variant mb-unit-lg max-w-xl mx-auto">Join GemRank Celestial to track your favorite creators and discover the next generation of global stars before they go viral.</p>
+<div class="flex flex-col sm:flex-row gap-unit-md justify-center">
+<button class="px-unit-lg py-3 bg-primary-container text-on-primary-container font-bold rounded-full hover:shadow-[0_0_20px_rgba(82,141,255,0.4)] transition-all active:scale-95">Create Free Account</button>
+<button class="px-unit-lg py-3 border border-white/10 hover:bg-white/5 font-bold rounded-full transition-all active:scale-95">Partner With Us</button>
+</div>
+</div>
+</section>
+</main>
+<!-- FOOTER -->
+<footer class="w-full py-12 border-t border-white/5 bg-slate-950/80 backdrop-blur-xl">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto gap-6">
+<div class="text-lg font-bold text-slate-200">GemRank <span class="text-blue-500">Celestial</span></div>
+<div class="flex gap-unit-lg">
+<a class="font-sans text-xs uppercase tracking-widest text-slate-500 hover:text-blue-300 transition-colors" href="#">About</a>
+<a class="font-sans text-xs uppercase tracking-widest text-slate-500 hover:text-blue-300 transition-colors" href="#">Privacy</a>
+<a class="font-sans text-xs uppercase tracking-widest text-slate-500 hover:text-blue-300 transition-colors" href="#">Terms</a>
+<a class="font-sans text-xs uppercase tracking-widest text-slate-500 hover:text-blue-300 transition-colors" href="#">Support</a>
+<a class="font-sans text-xs uppercase tracking-widest text-slate-500 hover:text-blue-300 transition-colors" href="#">API</a>
+</div>
+<div class="font-sans text-xs uppercase tracking-widest text-slate-500 opacity-80">
+                © 2024 GemRank Celestial. All rights reserved.
+            </div>
+</div>
+</footer>
+</body></html>
